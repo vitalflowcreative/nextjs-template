@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Cursor AI User Rules for Next.js, Supabase, and Stripe Project
+
+## General Principles
+
+1.  **Context Awareness:** Always prioritize the current project's stack: Next.js (App Router), TypeScript, Supabase, Stripe, Shadcn UI, **React Hook Form**, **Zod**, and **Zustand**.
+2.  **Security First:** When generating or suggesting code related to authentication, API keys, or payments, emphasize security best practices (e.g., environment variables, server-side secrets, RLS, input validation, webhook signature verification).
+3.  **Efficiency & Simplicity:** Aim for the most straightforward and efficient solution for the "bare-bones" requirement. Avoid over-engineering unless explicitly requested.
+4.  **Modularity:** Suggest breaking down complex features into smaller, reusable components or functions.
+5.  **Shadcn UI Preference:** When UI components are needed, prioritize using Shadcn UI components if an equivalent exists. Provide the `npx shadcn@latest add <component>` command if the component hasn't been added yet.
+6.  **Supabase Client Distinction:** Clearly differentiate between server-side (`@/utils/supabase/server`) and client-side (`@/utils/supabase/client`) Supabase instances and explain why each is used.
+7.  **Next.js App Router Best Practices:** Adhere to App Router conventions (e.g., Server Components by default, `use client` directive, Route Handlers for APIs, Middleware).
+8.  **Type Safety:** Always provide TypeScript code and include relevant type definitions.
+9.  **Clear Explanations:** When suggesting code or changes, briefly explain the "why" behind the approach.
+
+## Specific Task-Oriented Rules
+
+### A. Authentication & User Management
+
+1.  **Auth Flow:** When discussing or generating auth code, always include:
+    * `signInWithPassword`, `signUp`, `signOut`.
+    * Handling `auth.users` ID with `public.profiles` table (via `auth.uid()`).
+    * Redirection logic after auth actions.
+    * The `emailRedirectTo` option for `signUp`.
+    * Guidance on `middleware.ts` for session refreshing.
+2.  **RLS Emphasis:** Remind me to always enable and correctly configure Row Level Security (RLS) policies for *all* `public` tables that contain user-specific data. Provide examples of common RLS policies (`auth.uid() = id`).
+3.  **Client vs. Server Auth:** When fetching user sessions, differentiate between `supabase.auth.getUser()` in Server Components (using `createClient` from `server.ts`) and client-side listener (`onAuthStateChange`) or initial load (using `createClient` from `client.ts`).
+
+### B. Database Interaction (Supabase)
+
+1.  **Data Fetching:** For data fetching in Server Components, use the `createClient` from `server.ts`. For client-side data modifications, use `createClient` from `client.ts` after authentication.
+2.  **Data Manipulation:** When suggesting `insert`, `update`, or `delete` operations, indicate whether it should be a client action (if RLS allows) or a server action/API route (recommended for security).
+3.  **Foreign Keys:** When showing schema or queries, highlight foreign key relationships (e.g., `profiles.id` to `auth.users.id`, `orders.user_id` to `auth.users.id`, `orders.product_id` to `products.id`).
+
+### C. Stripe Integration
+
+1.  **Secret Key Handling:** Explicitly state that `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` must *never* be exposed client-side. All Stripe API calls involving these must be made from a Next.js API route or Server Action.
+2.  **Price Integrity:** When processing payments, emphasize fetching the product price from the database (server-side) at the time of checkout session creation, rather than relying on a client-provided price.
+3.  **Checkout Session Creation:** Provide a clear example of a Next.js API Route for `stripe.checkout.sessions.create` including `line_items`, `mode`, `success_url`, `cancel_url`, and `metadata`.
+4.  **Client-Side Redirect:** Guide on using `loadStripe` and `stripe.redirectToCheckout` for the client-side redirect to Stripe.
+5.  **Webhooks (Conceptual):** Even if not building the full webhook handler initially, remind me of the importance of Stripe webhooks for updating order status and other post-payment events securely.
+
+### D. Form and State Management
+
+1.  **Form Management Stack:** For all forms, **always recommend and use React Hook Form for state management and Zod for validation.** Connect them using `@hookform/resolvers/zod`.
+2.  **Shadcn Form Components:** When building forms, utilize Shadcn UI's `Form`, `FormField`, `FormItem`, `FormLabel`, `FormControl`, and `FormMessage` components for seamless integration and consistent styling.
+3.  **Global Client State:** For site-wide, client-only state that is not easily managed by props or context, **prefer using Zustand.** Guide on creating Zustand stores and consuming them in client components.
+4.  **Data Fetching vs. UI State:** Clearly distinguish between state managed by React Hook Form/Zustand (typically client UI or local app state) and state managed by data fetching libraries like React Query/SWR (server data synchronization).
+5.  **Type Inference with Zod:** When defining form schemas with Zod, emphasize using `z.infer<typeof yourSchema>` for robust type inference in React Hook Form.
+
+## Constraint Rules
+
+1.  **No Full Code Files Unless Requested:** Do not generate entire file contents unless specifically asked for "the full code for X file." Instead, provide snippets, modifications, or instructions.
+2.  **Prioritize Instructions over Direct Code:** If a step is complex, break it down into smaller instructions first, then offer code snippets for each instruction.
+3.  **Avoid Unnecessary Dependencies:** Only suggest packages that are directly relevant to the current task.
+4.  **Confirm Existing Files:** Before modifying a file, state the file path and confirm its existence.
+5.  **Adhere to `instructions.md`:** Follow the `instructions.md` document step-by-step unless I explicitly instruct to deviate.
+
+```
