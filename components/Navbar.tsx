@@ -32,49 +32,51 @@ export default function Navbar() {
   }, [supabase.auth]);
 
   return (
-    <nav className="border-b bg-background">
-      <div className="container flex h-16 items-center justify-between px-4">
-        <Link href="/" className="font-semibold">
-          DoodleLab AI
-        </Link>
-
-        <div className="flex items-center gap-6">
-          <Link
-            href="/pricing"
-            className={`text-sm ${
-              pathname === "/pricing"
-                ? "text-foreground font-medium"
-                : "text-muted-foreground"
-            }`}
-          >
-            Pricing
+    <header>
+      <nav className="border-b bg-background">
+        <div className="container flex h-16 items-center justify-between px-4 mx-auto">
+          <Link href="/" className="font-semibold">
+            Next.js SaaS Template
           </Link>
 
-          {!isLoading && (
-            <>
-              {user ? (
-                <div className="flex items-center gap-4">
-                  <Link
-                    href="/dashboard"
-                    className={`text-sm ${
-                      pathname === "/dashboard"
-                        ? "text-foreground font-medium"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    Dashboard
-                  </Link>
-                  <SignOutButton />
-                </div>
-              ) : (
-                <Button asChild>
-                  <Link href="/auth">Sign in</Link>
-                </Button>
-              )}
-            </>
-          )}
+          <div className="flex items-center gap-6">
+            <Link
+              href="/pricing"
+              className={`text-sm ${
+                pathname === "/pricing"
+                  ? "text-foreground font-medium"
+                  : "text-muted-foreground"
+              }`}
+            >
+              Pricing
+            </Link>
+
+            {!isLoading && (
+              <>
+                {user ? (
+                  <div className="flex items-center gap-4">
+                    <Link
+                      href="/dashboard"
+                      className={`text-sm ${
+                        pathname === "/dashboard"
+                          ? "text-foreground font-medium"
+                          : "text-muted-foreground"
+                      }`}
+                    >
+                      Dashboard
+                    </Link>
+                    <SignOutButton />
+                  </div>
+                ) : (
+                  <Button asChild>
+                    <Link href="/auth">Sign in</Link>
+                  </Button>
+                )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 } 

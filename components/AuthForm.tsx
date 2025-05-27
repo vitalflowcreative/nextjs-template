@@ -71,45 +71,70 @@ export default function AuthForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>{isSignUp ? "Create an account" : "Sign in"}</CardTitle>
+    <Card className="w-full max-w-md mx-auto shadow-lg border rounded-xl bg-background/80 backdrop-blur animate-fade-in">
+      <CardHeader className="space-y-2 text-center">
+        <CardTitle className="text-2xl font-bold">
+          {isSignUp ? "Create an account" : "Sign in"}
+        </CardTitle>
+        <p className="text-muted-foreground text-sm">
+          {isSignUp
+            ? "Sign up to get started with your SaaS journey."
+            : "Sign in to your account to access your dashboard."}
+        </p>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="you@example.com"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="flex flex-col space-y-2">
-              <Button type="submit" disabled={isLoading}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <div className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="you@example.com"
+                        autoComplete="email"
+                        className="transition focus-visible:ring-2 focus-visible:ring-primary"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        autoComplete={isSignUp ? "new-password" : "current-password"}
+                        className="transition focus-visible:ring-2 focus-visible:ring-primary"
+                        {...field}
+                      />
+                    </FormControl>
+                    {isSignUp && (
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Password must be at least 6 characters.
+                      </p>
+                    )}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="space-y-3 pt-2">
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="w-full font-semibold transition focus-visible:ring-2 focus-visible:ring-primary"
+              >
                 {isLoading ? (
                   "Loading..."
                 ) : isSignUp ? (
@@ -118,11 +143,19 @@ export default function AuthForm() {
                   "Sign in"
                 )}
               </Button>
+              <div className="flex items-center gap-2 my-2">
+                <span className="flex-1 h-px bg-muted-foreground/20" />
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                  or
+                </span>
+                <span className="flex-1 h-px bg-muted-foreground/20" />
+              </div>
               <Button
                 type="button"
                 variant="ghost"
                 onClick={() => setIsSignUp(!isSignUp)}
                 disabled={isLoading}
+                className="w-full text-sm transition hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {isSignUp
                   ? "Already have an account? Sign in"
@@ -134,4 +167,9 @@ export default function AuthForm() {
       </CardContent>
     </Card>
   );
-} 
+}
+
+// Add fade-in animation
+// In your global CSS (e.g., globals.css), add:
+// @keyframes fade-in { from { opacity: 0; transform: translateY(16px);} to { opacity: 1; transform: none; } }
+// .animate-fade-in { animation: fade-in 0.6s cubic-bezier(.4,0,.2,1) both; } 

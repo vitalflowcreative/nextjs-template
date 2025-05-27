@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,29 +38,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 flex flex-col justify-center items-center w-full">
           {children}
         </main>
-        <footer className="border-t">
-          <div className="mx-auto max-w-7xl px-4 py-6 md:flex md:items-center md:justify-between">
-            <div className="text-center md:text-left">
-              <p className="text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} Next.js SaaS Template. All rights reserved.
-              </p>
-            </div>
-            <div className="mt-4 flex justify-center space-x-6 md:mt-0">
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary">
-                Documentation
-              </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary">
-                GitHub
-              </a>
-              <a href="#" className="text-sm text-muted-foreground hover:text-primary">
-                License
-              </a>
-            </div>
-          </div>
-        </footer>
+        <Footer />
         <Toaster />
       </body>
     </html>
