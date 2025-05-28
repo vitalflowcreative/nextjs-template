@@ -1,3 +1,7 @@
+"use client"
+
+import { ThemeSwitcher } from "@/components/ThemeSwitcher"
+
 export default function Footer() {
   return (
     <footer className="border-t">
@@ -7,7 +11,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Next.js SaaS Template. All rights reserved.
           </p>
         </div>
-        <div className="mt-4 flex justify-center space-x-6 md:mt-0">
+        <div className="mt-4 flex items-center justify-center space-x-6 md:mt-0">
           <a href="#" className="text-sm text-muted-foreground hover:text-primary">
             Documentation
           </a>
@@ -17,6 +21,7 @@ export default function Footer() {
           <a href="#" className="text-sm text-muted-foreground hover:text-primary">
             License
           </a>
+          <ThemeSwitcher />
         </div>
       </div>
     </footer>

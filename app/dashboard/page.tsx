@@ -19,7 +19,7 @@ export default async function DashboardPage() {
     .order("current_period_end", { ascending: false });
 
   return (
-    <div className="w-full flex-1 flex flex-col bg-muted/40 py-12 px-4">
+    <div className="w-full flex-1 flex flex-col py-12 px-4">
       <div className="container mx-auto">
         <div className="mb-8 border-b pb-6 text-left">
           <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
@@ -66,9 +66,9 @@ export default async function DashboardPage() {
               ))}
             </div>
           ) : (
-            <div className="bg-muted p-4 rounded-md text-center">
+            <div className="bg-card p-4 rounded-md text-center">
               <p className="text-muted-foreground mb-2">You have no active subscriptions.</p>
-              <Button asChild>
+              <Button asChild  size="lg">
                 <a href="/pricing">View Plans →</a>
               </Button>
             </div>

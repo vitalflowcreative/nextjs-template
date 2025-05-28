@@ -13,21 +13,11 @@ const adminActions = [
     description: "View and edit all current subscription plans.",
     href: "/admin/subscription-plans/manage",
   },
-  {
-    title: "View Users",
-    description: "See all registered users and their roles.",
-    href: "/admin/users",
-  },
-  {
-    title: "View Orders",
-    description: "Review all customer orders and statuses.",
-    href: "/admin/orders",
-  },
 ];
 
 export default function AdminDashboardPage() {
   return (
-    <div className="w-full flex-1 flex flex-col bg-muted/40 py-12 px-4">
+    <div className="w-full flex-1 flex flex-col py-12 px-4">
       <div className="container mx-auto">
         <div className="mb-8 border-b pb-6 text-left">
           <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
@@ -48,7 +38,7 @@ export default function AdminDashboardPage() {
                     {action.description}
                   </p>
                   <Button asChild className="mt-auto w-full font-semibold">
-                    <Link href={action.href}>Go</Link>
+                    <Link href={action.href}>{action.title}</Link>
                   </Button>
                 </CardContent>
               </Card>

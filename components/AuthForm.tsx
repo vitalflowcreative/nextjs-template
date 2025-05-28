@@ -71,7 +71,7 @@ export default function AuthForm() {
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-lg border rounded-xl bg-background/80 backdrop-blur animate-fade-in">
+    <Card className="w-full max-w-md mx-auto border shadow-sm rounded-xl backdrop-blur">
       <CardHeader className="space-y-2 text-center">
         <CardTitle className="text-2xl font-bold">
           {isSignUp ? "Create an account" : "Sign in"}

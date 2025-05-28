@@ -34,7 +34,7 @@ export default async function ManageSubscriptionPlansPage() {
   }
 
   return (
-    <div className="w-full flex-1 flex flex-col bg-muted/40 py-12 px-4">
+    <div className="w-full flex-1 flex flex-col py-12 px-4">
       <div className="container mx-auto">
         <div className="mb-8 border-b pb-6 text-left flex items-center justify-between">
           <h1 className="text-4xl font-bold mb-2">Manage Subscription Plans</h1>
