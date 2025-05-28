@@ -37,6 +37,11 @@ export async function middleware(request: NextRequest) {
   // Securely get the authenticated user
   const { data: { user } } = await supabase.auth.getUser();
 
+  // If user is signed in and the current path is /auth, redirect to /dashboard
+  if (user && request.nextUrl.pathname === "/auth") {
+    return NextResponse.redirect(new URL('/dashboard', request.url))
+  }
+
   // Check admin routes
   if (request.nextUrl.pathname.startsWith('/admin')) {
     if (!user) {
