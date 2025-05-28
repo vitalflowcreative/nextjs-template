@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 interface SubscribeButtonProps {
   planId: string;
@@ -10,6 +12,7 @@ interface SubscribeButtonProps {
   userId?: string;
   isCurrentPlan: boolean;
   billingInterval: "month" | "year";
+  className?: string;
 }
 
 export default function SubscribeButton({
@@ -18,12 +21,15 @@ export default function SubscribeButton({
   userId,
   isCurrentPlan,
   billingInterval,
+  className,
 }: SubscribeButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleSubscribe = async () => {
     if (!userId) {
       toast.error("Please sign in to subscribe");
+      router.push("/auth");
       return;
     }
 
@@ -61,7 +67,7 @@ export default function SubscribeButton({
 
   if (isCurrentPlan) {
     return (
-      <Button className="w-full" disabled>
+      <Button className={cn("w-full", className)} disabled>
         Current plan
       </Button>
     );
@@ -71,7 +77,7 @@ export default function SubscribeButton({
     <Button
       onClick={handleSubscribe}
       disabled={isLoading}
-      className="w-full"
+      className={cn("w-full", className)}
     >
       {isLoading ? "Loading..." : "Subscribe"}
     </Button>

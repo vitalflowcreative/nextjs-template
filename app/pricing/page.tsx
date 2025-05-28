@@ -38,13 +38,13 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Simple, transparent pricing
+    <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <div className="text-center space-y-8 max-w-3xl mx-auto pb-8">
+        <h1 className="text-5xl font-bold tracking-tight">
+          Simple, <span className="text-primary">transparent</span> pricing
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground">
-          Choose the plan that's right for you
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          Choose the plan that's right for you and start creating amazing AI-generated images today
         </p>
       </div>
 

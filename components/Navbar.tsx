@@ -11,6 +11,7 @@ import SignOutButton from "./SignOutButton";
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [role, setRole] = useState<string | null>(null);
   const pathname = usePathname();
   const supabase = createClient();
 
@@ -31,6 +32,21 @@ export default function Navbar() {
     return () => subscription.unsubscribe();
   }, [supabase.auth]);
 
+  useEffect(() => {
+    if (user) {
+      supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+        .then(({ data }) => {
+          setRole(data?.role || null);
+        });
+    } else {
+      setRole(null);
+    }
+  }, [user, supabase]);
+
   return (
     <header>
       <nav className="border-b bg-background">
@@ -50,7 +66,18 @@ export default function Navbar() {
             >
               Pricing
             </Link>
-
+            {role === 'admin' && (
+              <Link
+                href="/admin"
+                className={`text-sm ${
+                  pathname === "/admin"
+                    ? "text-foreground font-medium"
+                    : "text-muted-foreground"
+                }`}
+              >
+                Admin
+              </Link>
+            )}
             {!isLoading && (
               <>
                 {user ? (

@@ -27,20 +27,34 @@ const adminActions = [
 
 export default function AdminDashboardPage() {
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {adminActions.map((action) => (
-          <Card key={action.title} className="flex flex-col justify-between h-full">
-            <CardContent className="flex flex-col gap-4 p-6 flex-1">
-              <CardTitle>{action.title}</CardTitle>
-              <p className="text-muted-foreground text-sm flex-1">{action.description}</p>
-              <Button asChild>
-                <Link href={action.href}>Go</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+    <div className="w-full flex-1 flex flex-col bg-muted/40 py-12 px-4">
+      <div className="container mx-auto">
+        <div className="mb-8 border-b pb-6 text-left">
+          <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
+        </div>
+
+        <section className="mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {adminActions.map((action) => (
+              <Card
+                key={action.title}
+                className="flex flex-col gap-6 border shadow-sm rounded-xl p-2"
+              >
+                <CardContent className="flex flex-col gap-4 p-6 flex-1">
+                  <CardTitle className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                    {action.title}
+                  </CardTitle>
+                  <p className="text-muted-foreground text-sm flex-1 mb-4">
+                    {action.description}
+                  </p>
+                  <Button asChild className="mt-auto w-full font-semibold">
+                    <Link href={action.href}>Go</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );

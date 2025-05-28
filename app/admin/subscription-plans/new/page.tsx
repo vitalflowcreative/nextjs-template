@@ -22,9 +22,16 @@ export default async function NewSubscriptionPlanPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
-      <h1 className="text-2xl font-bold mb-8">Create New Subscription Plan</h1>
-      <SubscriptionPlanForm />
+    <div className="w-full flex-1 flex flex-col py-12 px-4">
+      <div className="container mx-auto">
+        <div className="mb-8 border-b pb-6 text-left">
+          <h1 className="text-4xl font-bold mb-2">Create New Subscription Plan</h1>
+        </div>
+
+        <section className="mt-4">
+          <SubscriptionPlanForm />  
+        </section>
+      </div>
     </div>
   );
 } 
