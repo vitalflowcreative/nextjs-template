@@ -139,13 +139,17 @@ CREATE POLICY "Users can update own subscriptions" ON user_subscriptions
 
 -- Create function to handle user creation
 CREATE OR REPLACE FUNCTION public.handle_new_user()
-RETURNS trigger AS $$
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
 BEGIN
   INSERT INTO public.profiles (id)
   VALUES (new.id);
   RETURN new;
 END;
-$$ LANGUAGE plpgsql SECURITY DEFINER;
+$$;
 
 -- Create trigger for new user creation
 CREATE TRIGGER on_auth_user_created
@@ -154,12 +158,15 @@ CREATE TRIGGER on_auth_user_created
 
 -- Create function to automatically update updated_at timestamp
 CREATE OR REPLACE FUNCTION public.update_updated_at_column()
-RETURNS trigger AS $$
+RETURNS trigger
+LANGUAGE plpgsql
+SET search_path = public
+AS $$
 BEGIN
   NEW.updated_at = now();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
 -- Create triggers for updated_at columns
 CREATE TRIGGER update_orders_updated_at
