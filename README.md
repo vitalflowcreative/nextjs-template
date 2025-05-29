@@ -1,60 +1,91 @@
-# DoodleLabAI
+# Next.js SaaS Boilerplate
 
 ---
 
-**DoodleLabAI** is your personal creative studio that transforms any image into a unique, ready-to-color outline. Whether you're a parent looking for personalized coloring activities, an educator creating unique learning materials, or a small business designing printable art, DoodleLabAI makes it incredibly easy to turn your photos and ideas into beautiful coloring pages.
+A modern, production-ready SaaS starter template for Next.js projects. Includes authentication (Supabase), subscription billing (Stripe), beautiful UI (Shadcn UI), and a full subscription management flow. Built for rapid development of SaaS products with best practices and extensibility in mind.
 
-## 🌟 Features
+## 🚀 Features
 
-* **Image-to-Outline Conversion:** Upload any image, and DoodleLabAI's advanced AI will intelligently trace the key lines, preparing it for coloring.
-* **Customizable Outlining Styles:** Choose from various styles like "Fine Line," "Bold Line," "Sketch," "Stencil," or even "Manga-style" (available in higher tiers) to get the perfect look for your coloring page.
-* **High-Resolution Output:** Download your coloring pages in crisp, clear PNG, JPG, or even SVG formats for professional use.
-* **Batch Processing:** Convert multiple images at once (available in Pro and Business tiers) to save time and streamline your workflow.
-* **Personalized & Unique:** Create one-of-a-kind coloring experiences from your own photos, memories, or designs.
-* **API Access:** For businesses and publishers, integrate DoodleLabAI directly into your own applications for seamless, high-volume generation.
+- **Authentication**: Sign up, sign in, sign out with Supabase Auth (email/password, magic links).
+- **User Profiles**: Managed in Supabase with RLS for security.
+- **Subscription Billing**: Stripe integration for monthly/annual plans, checkout, and webhooks.
+- **Pricing Page**: Dynamic pricing cards with plan selection and billing interval toggle.
+- **Dashboard**: User dashboard showing current subscription and account info.
+- **Admin Tools**: (Optional) Admin pages for managing subscription plans.
+- **UI Components**: Shadcn UI (button, input, label, card, toast, form, radio-group, etc.) with Tailwind CSS.
+- **TypeScript**: Full type safety throughout.
+- **App Router**: Uses Next.js App Router (`app/` directory).
 
-## ✨ How It Works
+## 🛠️ Tech Stack
 
-1.  **Upload Your Image:** Simply drag and drop or select the image you want to transform.
-2.  **Choose Your Style:** Pick an outlining style that best suits your vision.
-3.  **Generate:** Let DoodleLabAI's powerful AI do the magic, quickly turning your image into a pristine coloring page.
-4.  **Download & Print:** Save your new coloring page and print it out for endless creative fun!
+- [Next.js](https://nextjs.org/) (App Router)
+- [Supabase](https://supabase.com/) (Auth, Database, RLS)
+- [Stripe](https://stripe.com/) (Subscriptions, Checkout, Webhooks)
+- [Shadcn UI](https://ui.shadcn.com/) (UI components)
+- [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/) (forms & validation)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-## 🚀 Get Started
+## ⚡ Quick Start
 
-Ready to unleash your creativity?
+1. **Clone the repo:**
+   ```bash
+   git clone <your-repo-url>
+   cd <project-folder>
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Set up environment variables:**
+   - Copy `.env.example` to `.env.local` and fill in your Supabase and Stripe keys.
+4. **Set up Supabase:**
+   - Create a new Supabase project.
+   - Run the SQL in `utils/supabase/migrations/00001_initial_schema.sql` to set up tables and RLS.
+   - Add example subscription plans in the `subscription_plans` table and link to Stripe Price IDs.
+5. **Run the dev server:**
+   ```bash
+   npm run dev
+   ```
+6. **(Optional) Set up Stripe webhook:**
+   ```bash
+   stripe listen --forward-to localhost:3000/api/stripe-webhook
+   ```
 
-* **Visit our website:** [Your Website Link Here]
-* **Sign up for a Free account:** Get started with 1-2 free watermarked image transformations per month to experience DoodleLabAI.
-* **Explore our plans:** Discover our **Coloring Enthusiast**, **Creative Professional**, and **Business & Publisher** plans for more features, higher volumes, and premium options.
+## 📁 Project Structure
+
+- `app/` — Next.js App Router pages (auth, dashboard, pricing, api, etc.)
+- `components/` — UI and logic components (AuthForm, Navbar, PricingCards, SubscribeButton, etc.)
+- `components/ui/` — Shadcn UI components
+- `utils/supabase/` — Supabase client/server utilities and migrations
+- `app/api/` — API routes for Stripe checkout and webhook
+
+## 📝 Setup & Customization
+
+- See `.cursor/instructions.md` for a full breakdown of features, file responsibilities, and extension points.
+- Update the `subscription_plans` table and Stripe products/prices to match your business model.
+- Customize UI and add your own features/pages as needed.
+
+## 🧩 Included Pages
+
+- `/auth` — Sign in/up
+- `/dashboard` — User dashboard
+- `/pricing` — Pricing & plan selection
+- `/api/create-subscription-checkout-session` — Stripe checkout session API
+- `/api/stripe-webhook` — Stripe webhook handler
+- `/admin/subscription-plans` — (Optional) Admin plan management
+
+## 🛡️ Security
+
+- Supabase Row Level Security (RLS) is enabled and policies are provided in the migration SQL.
+- Stripe webhooks are verified for authenticity.
+
+## 🙌 Credits
+
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Supabase](https://supabase.com/)
+- [Stripe](https://stripe.com/)
+- [Next.js](https://nextjs.org/)
 
 ---
 
-## 💰 Pricing
-
-DoodleLabAI offers flexible pricing to suit every need, from casual users to large-scale publishers.
-
-* **Free Tier:** Try us out with 1-2 watermarked pages per month.
-* **Page Packs (Pay-As-You-Go):**
-    * 10 Pages for $4.00
-    * 25 Pages for $8.00
-    * 50 Pages for $14.00
-* **Monthly Subscriptions:**
-    * **Coloring Enthusiast:** $9.99/month for 50 pages.
-    * **Creative Professional:** $29.99/month for 250 pages (includes SVG export!).
-    * **Business & Publisher:** $129.99/month for 1,000 pages (includes API access!).
-
-*(High-Quality image generations consume 2-3 standard credits, depending on your plan.)*
-
----
-
-## 📞 Support
-
-If you have any questions, feedback, or need assistance, our support team is here to help!
-
-* **Visit our Help Center:** [Link to your Help Center/FAQ]
-* **Contact Support:** [Your Support Email Address]
-
----
-
-**DoodleLabAI - Where every image becomes a masterpiece in waiting.**
+**Start building your SaaS faster with this Next.js boilerplate!**
